@@ -1,5 +1,5 @@
 #include <iostream>
-#include "EasyBMP.h"
+#include "EasyBMP_1.06/EasyBMP.h"
 #include <vector>
 #include <queue>
 using namespace std;
