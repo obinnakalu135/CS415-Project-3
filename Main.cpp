@@ -157,6 +157,7 @@ int main(int argc, char* argv[]){
     end.x = Image.TellWidth();
     end.y = Image.TellHeight();
 
+
     Breath_First_Search(Image, start, end);
 
     return 0;
