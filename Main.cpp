@@ -76,6 +76,74 @@ void Breath_First_Search(BMP Image,Vertex start, Vertex end ){
 
 
 //void Best_First_Search(){}
+void Best_First_Search(BMP Image, Vertex start, Vertex end){
+    struct queueItem {
+        Vertex vertex;
+        int distance;
+        bool operator<(const queueItem& other) const {
+            return distance > other.distance; // Making it min heap
+        }
+    };
+
+    priority_queue<queueItem> Q; // Creates our priority queue
+    vector<bool> visited(Image.TellWidth() * Image.TellHeight(), false);  // Creates our visited array
+    vector<int> d(Image.TellWidth() * Image.TellHeight(), INT_MAX); // Creates our distance array
+    vector<Vertex> prev(Image.TellHeight() * Image.TellWidth(), Vertex());
+
+    // Starting Point
+    Q.push({start, 0});
+    visited[start.y * Image.TellWidth() + start.x] = true;
+    d[start.y * Image.TellWidth() + start.x] = 0;
+
+    // Best-First Search
+    while (!Q.empty() && !visited[end.y * Image.TellWidth() + end.x]) {
+        Vertex u = Q.top().vertex;
+        Q.pop();
+
+        for (int dx = -1; dx <= 1; ++dx) {
+            for (int dy = -1; dy <= 1; ++dy) {
+                Vertex v = {u.x + dx, u.y + dy};
+                if (v.x >= 0 && v.x < Image.TellWidth() && v.y >= 0 && v.y < Image.TellHeight() && isNeighbor(Image, u, v) && !visited[v.y * Image.TellWidth() + v.x]) {
+                    visited[v.y * Image.TellWidth() + v.x] = true;
+                    Image(v.x, v.y)->Green = 0;
+                    Image(v.x, v.y)->Blue = 0;
+                    d[v.y * Image.TellWidth() + v.x] = d[u.y * Image.TellWidth() + u.x] + 1;
+                    prev[v.y * Image.TellWidth() + v.x] = u;
+                    int h = abs(v.x - end.x) + abs(v.y - end.y); // Manhattan distance as heuristic
+                    Q.push({v, d[v.y * Image.TellWidth() + v.x] + h});
+                }
+            }
+        }
+    }
+
+    if (visited[end.y * Image.TellWidth() + end.x]) {
+        Vertex v = end;
+        while (v.x != start.x || v.y != start.y) {
+            Image(v.x, v.y)->Red = 255;
+            Image(v.x, v.y)->Green = 0;
+            Image(v.x, v.y)->Blue = 0;
+            v = prev[v.y * Image.TellWidth() + v.x];
+        }
+
+        Image(start.x, start.y)->Green = 255;
+        Image(start.x, start.y)->Red = 0;
+        Image(start.x, start.y)->Blue = 0;
+
+        // Create output image
+        BMP newImg;
+        newImg.SetSize(Image.TellWidth(), Image.TellHeight());
+        for (int i = 0; i < Image.TellWidth(); i++) {
+            for (int j = 0; j < Image.TellHeight(); j++) {
+                newImg(i, j)->Red = Image(i, j)->Red;
+                newImg(i, j)->Green = Image(i, j)->Green;
+                newImg(i, j)->Blue = Image(i, j)->Blue;
+            }
+        }
+        newImg.WriteToFile("output.bmp");
+    } else {
+        cout << "Target was not found" << endl;
+    }
+}
 
 int main(int argc, char* argv[]){
     BMP Image;
