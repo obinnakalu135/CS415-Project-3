@@ -7,6 +7,7 @@ include_directories(.)
 include_directories(EasyBMP_1.06)
 
 add_executable(CS415_Project_3
+        maze.bmp
         EasyBMP_1.06/EasyBMP.cpp
         EasyBMP_1.06/EasyBMP.h
         EasyBMP_1.06/EasyBMP_BMP.h

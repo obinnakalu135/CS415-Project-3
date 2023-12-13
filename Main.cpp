@@ -145,20 +145,32 @@ void Best_First_Search(BMP Image, Vertex start, Vertex end){
     }
 }
 
-int main(int argc, char* argv[]){
-    BMP Image;
-    Image.ReadFromFile(argv[1]);
+int main(){
+    string imageFile;
+    cout<<"Enter the filename of your BMP image: "<< endl;
+    cin >> imageFile;
 
-    Vertex start;
-    start.x = 0;
-    start.y = 0;
+    BMP image;
+    if(!image.ReadFromFile(imageFile.c_str())){
+        cout << "Error: could not read image file " << imageFile << endl;
+        return 1;
+    }
 
-    Vertex end;
-    end.x = Image.TellWidth();
-    end.y = Image.TellHeight();
+    Vertex start, end;
+    cout << "Enter the starting point coordinates (X,Y): ";
+    cin >> start.x >> start.y;
 
+    cout<< "Enter the ending point coordinates (X,Y): ";
+    cin >> end.x >> end.y;
 
-    Breath_First_Search(Image, start, end);
+    string bfsOutputfile, bestfirstOutputfile;
+    cout << "Enter the filename for the Breath First output image (e.g. bfs_output.bmp): ";
+    cin >> bfsOutputfile;
+    cout << "Enter the filename for the Best First output image (e.g. bfs_output.bmp): ";
+    cin >> bestfirstOutputfile;
+
+    Breath_First_Search(image,start,end);
+    Best_First_Search(image, start,end);
 
     return 0;
 }

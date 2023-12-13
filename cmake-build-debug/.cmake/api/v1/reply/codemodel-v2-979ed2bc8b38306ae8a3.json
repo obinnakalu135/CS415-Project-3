@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "CS415_Project_3::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-CS415_Project_3-Debug-424b1196aa0a26990138.json",
+					"jsonFile" : "target-CS415_Project_3-Debug-4aed66dcd17836061499.json",
 					"name" : "CS415_Project_3",
 					"projectIndex" : 0
 				}
@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/jmfra/Documents/CS415-Project-3/cmake-build-debug",
-		"source" : "C:/Users/jmfra/Documents/CS415-Project-3"
+		"build" : "C:/Users/Jacob/Documents/GitHub/CS415-Project-3/cmake-build-debug",
+		"source" : "C:/Users/Jacob/Documents/GitHub/CS415-Project-3"
 	},
 	"version" : 
 	{
